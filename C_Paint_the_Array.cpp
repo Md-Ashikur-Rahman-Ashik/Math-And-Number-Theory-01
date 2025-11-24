@@ -27,44 +27,56 @@ int main()
             cin >> v[i];
         }
 
-        vector<bool> boolVector(n);
         bool flag = true;
-        long long desiredValue = 0;
 
-        for (int i = 0; i < n; i++)
+        long long firstGCD = 0;
+        long long secondGCD = 0;
+
+        for (int i = 0; i < n; i = i + 2)
         {
-            for (int j = 0; j < n; j++)
-            {
-                boolVector[j] = false;
-            }
+            firstGCD = __gcd(firstGCD, v[i]);
+        }
 
+        for (int i = 1; i < n; i = i + 2)
+        {
+            if (v[i] % firstGCD == 0)
+            {
+                flag = false;
+                break;
+            }
+        }
+
+        if (flag)
+        {
+            cout << firstGCD << '\n';
+        }
+        else
+        {
             flag = true;
 
-            for (int j = 0; j < n; j++)
+            for (int i = 1; i < n; i = i + 2)
             {
-                if (v[j] % v[i] == 0)
-                {
-                    boolVector[j] = true;
-                }
+                secondGCD = __gcd(secondGCD, v[i]);
+            }
 
-                if (j > 0)
+            for (int i = 0; i < n; i = i + 2)
+            {
+                if (v[i] % secondGCD == 0)
                 {
-                    if (boolVector[j] == boolVector[j - 1])
-                    {
-                        flag = false;
-                        break;
-                    }
+                    flag = false;
+                    break;
                 }
             }
 
             if (flag)
             {
-                desiredValue = v[i];
-                break;
+                cout << secondGCD << '\n';
+            }
+            else
+            {
+                cout << 0 << '\n';
             }
         }
-
-        cout << desiredValue << '\n';
     }
 
     return 0;
