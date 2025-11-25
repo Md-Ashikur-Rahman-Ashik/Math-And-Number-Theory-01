@@ -9,6 +9,24 @@ template <class T>
 using pbds = tree<T, null_type,
                   less<T>, rb_tree_tag, tree_order_statistics_node_update>;
 
+bool isPrime(int integerValue)
+{
+    if (integerValue == 1)
+    {
+        return false;
+    }
+
+    for (int i = 2; i * i <= integerValue; i++)
+    {
+        if (integerValue % i == 0)
+        {
+            return false;
+        }
+    }
+
+    return true;
+}
+
 int main()
 {
     ios_base::sync_with_stdio(false);
@@ -17,80 +35,24 @@ int main()
     int a;
     cin >> a;
 
-    if (a % 2 == 0)
+    if (isPrime(a))
     {
-        if (a == 2)
-        {
-            cout << 1;
-        }
-        else
-        {
-            cout << 2;
-        }
-
-        return 0;
+        cout << 1;
+    }
+    else if (a % 2 == 0)
+    {
+        cout << 2;
     }
     else
     {
-        int b = a;
-        b = b - 2;
-
-        if (b > 1)
+        if (isPrime(a - 2))
         {
-            vector<int> v;
-
-            for (int i = 1; i * i <= b; i++)
-            {
-                if (b % i == 0)
-                {
-                    v.push_back(i);
-
-                    if (b / i != i)
-                    {
-                        v.push_back(b / i);
-                    }
-                }
-            }
-
-            int size = v.size();
-            if (size == 2)
-            {
-                cout << 2;
-                return 0;
-            }
-            else
-            {
-                cout << 3;
-                return 0;
-            }
+            cout << 2;
         }
         else
         {
-            cout << 1;
-            return 0;
+            cout << 3;
         }
-    }
-
-    vector<int> v;
-
-    for (int i = 1; i * i <= a; i++)
-    {
-        if (a % i == 0)
-        {
-            v.push_back(i);
-
-            if (a / i != i)
-            {
-                v.push_back(a / i);
-            }
-        }
-    }
-
-    int size = v.size();
-    if (size == 2)
-    {
-        cout << 1;
-        return 0;
     }
 
     return 0;
