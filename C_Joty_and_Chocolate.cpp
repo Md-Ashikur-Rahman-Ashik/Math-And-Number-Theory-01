@@ -17,22 +17,24 @@ int main()
   long long n, a, b, p, q;
   cin >> n >> a >> b >> p >> q;
 
-  long long countRed = 0;
-  long long countBlue = 0;
+  long long firstResult = n / a;
+  long long secondResult = n / b;
+  long long LCM = (a / __gcd(a, b)) * b;
+  long long combinedResult = n / LCM;
 
-  for (int i = 1; i <= n; i++)
+  firstResult = firstResult - combinedResult;
+  secondResult = secondResult - combinedResult;
+
+  if (p > q)
   {
-    if (i % a == 0)
-    {
-      countRed++;
-    }
-    else if (i % b == 0)
-    {
-      countBlue++;
-    }
+    combinedResult = combinedResult * p;
+  }
+  else
+  {
+    combinedResult = combinedResult * q;
   }
 
-  cout << (countRed * p) + (countBlue * q);
+  cout << (firstResult * p) + (secondResult * q) + combinedResult;
 
   return 0;
 }
